@@ -16,43 +16,46 @@ interface Options {
 function applyEase(progress: number, ease: Ease): number {
   switch (ease) {
     case "ease-in":
-      return progress * progress;
+        return progress * progress;
 
     case "ease-out":
-      return 1 - (1 - progress) ** 2;
+        return 1 - (1 - progress) ** 2;
 
     case "ease-in-out":
-      return progress < 0.5
-        ? 2 * progress * progress
-        : 1 - (-2 * progress + 2) ** 2 / 2;
+        return progress < 0.5 ? 2 * progress * progress: 1 - (-2 * progress + 2) ** 2 / 2;
 
     case "ease":
     default:
-      return progress;
+        return progress;
   }
 }
 
 export class Root extends HTMLDivElement {
     private onClickClose: boolean
+    private blockScroll: boolean
     private options: Options
+    private previousBodyOverflow = ""
+    private handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+            this.close()
+        }
+    }
 
     static get observedAttributes() {
         return ["close-on-click"]
     }
 
-    constructor(onClickClose: boolean, options: Options) {
+    constructor(onClickClose?: boolean, blockScroll?: boolean, options?: Options) {
         super()
-        this.onClickClose = onClickClose
-        this.options = options
+        this.onClickClose = onClickClose ?? false
+        this.blockScroll = blockScroll ?? false
+        this.options = options ?? {}
     }
 
     connectedCallback() {
         this.classList.add(this.options?.classTag ?? "")
-        this.addEventListener("keydown", (e) => {
-            if (e.key === "esc") {
-                this.close()
-            }
-        })
+        this.updateListeners()
+        this.updateScroll()
     }
 
     attributeChangedCallback(name: string, oldValue: string, newValue: string) {
@@ -69,10 +72,22 @@ export class Root extends HTMLDivElement {
         this.onClickClose = close
     }
 
+    updateListeners() {
+        this.removeEventListener("overlay-close", this.close)
+        this.removeEventListener("keydown", this.handleKeyDown)
+        this.addEventListener("overlay-close", this.close)
+        this.addEventListener("keydown", this.handleKeyDown)
+    }
+    
+    updateScroll() {
+        if (this.blockScroll) {
+            this.previousBodyOverflow = document.body.style.overflow
+            document.body.style.overflow = "hidden"
+        }
+        else document.body.style.overflow = this.previousBodyOverflow
+    }
+
     close() {
-        this.dispatchEvent(new CustomEvent("overlay-close", {
-            bubbles: true
-        }))
         if (this.options?.animation) {
             this.exitAnimation()
         }

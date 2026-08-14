@@ -3,9 +3,9 @@ import { Root } from "./root"
 export class Overlay extends HTMLDivElement {
     private classTag: string
 
-    constructor(classTag: string) {
+    constructor(classTag: string = "overlay-overlay") {
         super()
-        this.classTag = classTag !== "" ? classTag : "overlay-overlay"
+        this.classTag = classTag 
     }
 
     connectedCallback() {
@@ -23,3 +23,4 @@ export class Overlay extends HTMLDivElement {
         }
     }
 }
+customElements.define("<overlay-overlay>", Overlay)
