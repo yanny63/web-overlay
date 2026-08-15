@@ -1,15 +1,17 @@
 export class TriggerButton extends HTMLElement {
     private forRootId: string | null
     private classTag: string 
+    private innerContent: string | null
 
     static get observedAttributes() {
         return ["for"]
     }
 
-    constructor(forRootId?: string, classTag: string = "overlay-trigger") {
+    constructor(forRootId?: string, classTag: string = "overlay-trigger", innerText?: string ) {
         super()
         this.forRootId = forRootId || null
         this.classTag = classTag
+        this.innerContent = innerText || null
     }
 
     connectedCallback() {
@@ -22,6 +24,9 @@ export class TriggerButton extends HTMLElement {
         const root = document.getElementById(this.forRootId)
         if (root) {
             this.addEventListener("click", this.displayRoot)
+        }
+        if (!this.hasChildNodes()) {
+            this.textContent = this.innerContent
         }
     }
 

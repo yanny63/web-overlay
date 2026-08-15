@@ -7,4 +7,10 @@ export class Title extends HTMLElement {
         this.text = text ?? ""
         this.classTag = classTag
     }
+
+    connectedCallback() {
+        if (!this.hasChildNodes()) {
+            this.textContent = this.text
+        }
+    }
 }

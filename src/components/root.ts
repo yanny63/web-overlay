@@ -31,7 +31,6 @@ function applyEase(progress: number, ease: Ease): number {
 }
 
 export class Root extends HTMLElement {
-    private onClickClose: boolean
     private blockScroll: boolean
     public options: Options
     private previousBodyOverflow = ""
@@ -45,9 +44,8 @@ export class Root extends HTMLElement {
         return ["close-on-click"]
     }
 
-    constructor(onClickClose?: boolean, blockScroll?: boolean, options?: Options) {
+    constructor(blockScroll?: boolean, options?: Options) {
         super()
-        this.onClickClose = onClickClose ?? false
         this.blockScroll = blockScroll ?? false
         this.options = options ?? {}
     }
@@ -56,6 +54,7 @@ export class Root extends HTMLElement {
         this.classList.add(this.options?.classTag || "overlay-root")
         this.updateListeners()
         this.updateScroll()
+        this.updateAttributes()
     }
 
     disconnectedCallback() {
@@ -70,11 +69,16 @@ export class Root extends HTMLElement {
     }
 
     get getClose() {
-        return this.onClickClose
+        return this.options.onClickClose
     }
     
     set setClose(close: boolean) {
-        this.onClickClose = close
+        this.options.onClickClose = close
+    }
+
+    updateAttributes() {
+        this.blockScroll ??= this.hasAttribute("blockscroll") ? true : false
+        this.options.onClickClose ??= this.hasAttribute("onclickclose") ? true : false
     }
 
     updateListeners() {

@@ -10,7 +10,9 @@ export class CloseButton extends HTMLElement {
 
     connectedCallback() {
         this.addEventListener("click", this.handleClick)
-        this.setContent()
+        if (!this.hasChildNodes()) {
+            this.setContent()
+        }
         this.classList.add(this.classTag)
     }
 

@@ -10,7 +10,7 @@ export class Content extends HTMLElement {
 
     connectedCallback() {
         this.classList.add(this.classTag)
-        if (this.content !== null) {
+        if (this.content !== null && !this.hasChildNodes()) {
             this.append(this.content)
         }
     }
