@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="../dist/styles.css" />
+  <style>
+    body {
+        overflow: hidden;
+        width: 100%;
+        height: 100vh;
+    }
+  </style>
+  <script src="../dist/index.js" type="module"></script>
+</head>
+<body>
+  <overlay-root id="myOverlay">
+    <overlay-overlay>
+        <overlay-title>Tytuł testowy</overlay-title>
+        <overlay-content>Treść z paczki dist</overlay-content>
+        <overlay-close>Zamknij</overlay-close>
+    </overlay-overlay>
+  </overlay-root>
+
+  <overlay-trigger for="myOverlay">Otwórz</overlay-trigger>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "name": "overlay",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A lightweight overlay component for Vanilla JavaScript and TypeScript.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "dev": "vite examples",
+    "build": "tsup && tsc --emitDeclarationOnly --outDir dist && cp src/styles.css dist/styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanny63/web-overlay.git"
+  },
+  "keywords": [],
+  "author": "yanny",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yanny63/web-overlay/issues"
+  },
+  "homepage": "https://github.com/yanny63/web-overlay#readme",
+  "devDependencies": {
+    "tsup": "^8.5.1",
+    "typescript": "^7.0.2"
+  }
+}

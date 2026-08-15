@@ -1,0 +1,7 @@
+export { Root } from "./components/root"
+export { Overlay } from "./components/overlay"
+export { Content } from "./components/content"
+export { Title } from "./components/title"
+export { TriggerButton } from "./components/triggerButton"
+export { CloseButton } from "./components/closeButton"
+import "./register"

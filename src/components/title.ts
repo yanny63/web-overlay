@@ -1,4 +1,4 @@
-export class Title extends HTMLHeadingElement {
+export class Title extends HTMLElement {
     private text: string
     private classTag: string
 
@@ -8,4 +8,3 @@ export class Title extends HTMLHeadingElement {
         this.classTag = classTag
     }
 }
-customElements.define("<overlay-title>", Title)

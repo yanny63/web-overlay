@@ -16,24 +16,24 @@ interface Options {
 function applyEase(progress: number, ease: Ease): number {
   switch (ease) {
     case "ease-in":
-        return progress * progress;
+        return progress * progress
 
     case "ease-out":
-        return 1 - (1 - progress) ** 2;
+        return 1 - (1 - progress) ** 2
 
     case "ease-in-out":
-        return progress < 0.5 ? 2 * progress * progress: 1 - (-2 * progress + 2) ** 2 / 2;
+        return progress < 0.5 ? 2 * progress * progress: 1 - (-2 * progress + 2) ** 2 / 2
 
     case "ease":
     default:
-        return progress;
+        return progress
   }
 }
 
-export class Root extends HTMLDivElement {
+export class Root extends HTMLElement {
     private onClickClose: boolean
     private blockScroll: boolean
-    private options: Options
+    public options: Options
     private previousBodyOverflow = ""
     private handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === "Escape") {
@@ -53,9 +53,14 @@ export class Root extends HTMLDivElement {
     }
 
     connectedCallback() {
-        this.classList.add(this.options?.classTag ?? "")
+        this.classList.add(this.options?.classTag || "overlay-root")
         this.updateListeners()
         this.updateScroll()
+    }
+
+    disconnectedCallback() {
+        this.removeEventListener("overlay-close", this.close)
+        window.removeEventListener("keydown", this.handleKeyDown)
     }
 
     attributeChangedCallback(name: string, oldValue: string, newValue: string) {
@@ -74,9 +79,9 @@ export class Root extends HTMLDivElement {
 
     updateListeners() {
         this.removeEventListener("overlay-close", this.close)
-        this.removeEventListener("keydown", this.handleKeyDown)
+        window.removeEventListener("keydown", this.handleKeyDown)
         this.addEventListener("overlay-close", this.close)
-        this.addEventListener("keydown", this.handleKeyDown)
+        window.addEventListener("keydown", this.handleKeyDown)
     }
     
     updateScroll() {
@@ -92,7 +97,7 @@ export class Root extends HTMLDivElement {
             this.exitAnimation()
         }
         else {
-            this.remove()
+            this.classList.remove("root-visible")
         }
     } 
 
@@ -118,11 +123,9 @@ export class Root extends HTMLDivElement {
                 requestAnimationFrame(animation)
                 return
             }
-            this.remove()
+            this.classList.remove("root-visible")
         }
         requestAnimationFrame(animation)
     }
 
 }
-
-customElements.define("<overlay-root>", Root)

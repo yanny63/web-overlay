@@ -1,6 +1,6 @@
 import { Root } from "./root"
 
-export class Overlay extends HTMLDivElement {
+export class Overlay extends HTMLElement {
     private classTag: string
 
     constructor(classTag: string = "overlay-overlay") {
@@ -9,6 +9,7 @@ export class Overlay extends HTMLDivElement {
     }
 
     connectedCallback() {
+        this.classList.add(this.classTag)
         this.addEventListener("click", this.handleClick)
     }
 
@@ -23,4 +24,3 @@ export class Overlay extends HTMLDivElement {
         }
     }
 }
-customElements.define("<overlay-overlay>", Overlay)
