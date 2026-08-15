@@ -65,6 +65,7 @@
     background: transparent;
     border: 0;
     border-radius: 50%;
+    transition: 0.3s;
 }
 
 .overlay-close:hover {
