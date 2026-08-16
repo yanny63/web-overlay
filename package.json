@@ -24,7 +24,7 @@
     "url": "git+https://github.com/yanny63/web-overlay.git"
   },
   "keywords": [],
-  "author": "yanny",
+  "author": "yanny63",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/yanny63/web-overlay/issues"
@@ -33,5 +33,10 @@
   "devDependencies": {
     "tsup": "^8.5.1",
     "typescript": "^7.0.2"
-  }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ]
 }
