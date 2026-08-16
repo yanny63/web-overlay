@@ -1,5 +1,5 @@
 {
-  "name": "overlay",
+  "name": "@yanny63/overlay",
   "version": "1.0.1",
   "type": "module",
   "description": "A lightweight overlay component for Vanilla JavaScript and TypeScript.",
