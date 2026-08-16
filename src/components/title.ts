@@ -12,5 +12,6 @@ export class Title extends HTMLElement {
         if (!this.hasChildNodes()) {
             this.textContent = this.text
         }
+        this.classList.add(this.classTag)
     }
 }

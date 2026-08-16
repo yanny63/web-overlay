@@ -28,6 +28,7 @@ export class TriggerButton extends HTMLElement {
         if (!this.hasChildNodes()) {
             this.textContent = this.innerContent
         }
+        this.classList.add(this.classTag)
     }
 
     disconnectedCallback() {
