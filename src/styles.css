@@ -53,9 +53,7 @@
     top: 12px;
     right: 12px;
     display: grid;
-    width: 32px;
-    height: 32px;
-    padding: 0;
+    padding: 6px 10px;
     place-items: center;
     color: rgb(211 47 47);
     font: inherit;

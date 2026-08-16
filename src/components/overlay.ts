@@ -17,10 +17,12 @@ export class Overlay extends HTMLElement {
         this.removeEventListener("click", this.handleClick)
     }
 
-    handleClick() {
-        const root = this.closest("overlay-root") as Root | null
-        if (root?.getClose) {
-            root.close()
+    handleClick(e: MouseEvent) {
+        if ((e.target as Element).matches("overlay-overlay")) {
+            const root = this.closest("overlay-root") as Root | null
+            if (root?.getClose) {
+                root.close()
+            }
         }
     }
 }
